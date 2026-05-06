@@ -87,6 +87,7 @@ async function buildApp() {
   await app.register(require('./routes/devices'), { prefix: '/api/devices' });
   await app.register(require('./routes/metrics'), { prefix: '/api/metrics' });
   await app.register(require('./routes/alerts'), { prefix: '/api/alerts' });
+  await app.register(require('./routes/agent'), { prefix: '/api/agent' });
   await app.register(require('./routes/ws'), { prefix: '/ws' });
 
   app.get('/health', async () => ({ status: 'ok', time: new Date().toISOString() }));
@@ -113,6 +114,10 @@ async function main() {
   // Start polling scheduler
   const { startPoller } = require('./poller');
   startPoller(db, app);
+
+  // Start Tacitine NMS Agent listener on port 2133
+  const { startAgentListener } = require('./agent-listener');
+  startAgentListener(db);
 
   // Swap probe → real server
   probe.close(() => {

@@ -56,12 +56,16 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3001
+      AGENT_PORT: 2133
+      AGENT_SECRET: ${AGENT_SECRET:-ab01970c-0444ff4a-7a144966-b31ca1c4}
       DATABASE_URL: postgresql://${POSTGRES_USER:-nms}:${POSTGRES_PASSWORD:-nms_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-nmsdb}
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:-nms_jwt_secret_2026_change_in_production}
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
       SNMP_DEFAULT_COMMUNITY: ${SNMP_DEFAULT_COMMUNITY:-NATIONAL852}
       POLL_INTERVAL_SECONDS: ${POLL_INTERVAL_SECONDS:-60}
+    ports:
+      - "2133:2133"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:3001/health || exit 1"]
       interval: 10s

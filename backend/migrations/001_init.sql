@@ -59,3 +59,15 @@ CREATE INDEX IF NOT EXISTS idx_device_metrics_device_id ON device_metrics(device
 CREATE INDEX IF NOT EXISTS idx_device_metrics_recorded_at ON device_metrics(recorded_at DESC);
 CREATE INDEX IF NOT EXISTS idx_alerts_device_id ON alerts(device_id);
 CREATE INDEX IF NOT EXISTS idx_alerts_resolved ON alerts(resolved);
+
+CREATE TABLE IF NOT EXISTS agent_events (
+  id SERIAL PRIMARY KEY,
+  source_ip INET,
+  device_id INT REFERENCES devices(id) ON DELETE SET NULL,
+  event_type VARCHAR(100),
+  payload JSONB,
+  received_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_agent_events_device_id ON agent_events(device_id);
+CREATE INDEX IF NOT EXISTS idx_agent_events_received_at ON agent_events(received_at DESC);

@@ -51,4 +51,8 @@ export const api = {
   getAlerts: (resolved = false) => apiFetch(`/alerts?resolved=${resolved}`),
   resolveAlert: (id: number) => apiFetch(`/alerts/${id}/resolve`, { method: 'PUT' }),
   deleteAlert: (id: number) => apiFetch(`/alerts/${id}`, { method: 'DELETE' }),
+
+  // Agent events (Tacitine NMS Agent)
+  getAgentEvents: (limit = 50) => apiFetch(`/agent/events?limit=${limit}`),
+  getAgentStatus: () => apiFetch('/agent/status'),
 };

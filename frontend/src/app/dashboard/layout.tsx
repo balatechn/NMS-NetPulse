@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { WSProvider, useWS } from '@/lib/ws';
 import {
   LayoutDashboard, Server, Bell, BarChart2, LogOut,
-  Network, Wifi, WifiOff, Menu, X,
+  Network, Wifi, WifiOff, Menu, X, Radio,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -14,6 +14,7 @@ const NAV = [
   { href: '/dashboard/devices', icon: Server, label: 'Devices' },
   { href: '/dashboard/alerts', icon: Bell, label: 'Alerts' },
   { href: '/dashboard/metrics', icon: BarChart2, label: 'Metrics' },
+  { href: '/dashboard/agent', icon: Radio, label: 'Agent Events' },
 ];
 
 function WSIndicator() {
