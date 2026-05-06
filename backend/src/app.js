@@ -16,9 +16,8 @@ const db = new Pool({ connectionString: DB_URL, max: 10 });
 // ── Startup probe server (returns 503 until Fastify is ready) ────────────────
 let probeReady = false;
 const probe = http.createServer((req, res) => {
-  if (probeReady) { res.writeHead(200); res.end('ok'); return; }
-  res.writeHead(503, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ status: 'starting' }));
+  res.writeHead(200);
+  res.end(JSON.stringify({ status: probeReady ? 'ok' : 'starting' }));
 });
 probe.listen(PORT, '0.0.0.0');
 
