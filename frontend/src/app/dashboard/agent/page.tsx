@@ -46,7 +46,7 @@ export default function AgentEventsPage() {
         device_name: null,
         event_type: lastMessage.data.eventType,
         payload: lastMessage.data.payload,
-        received_at: lastMessage.time,
+        received_at: lastMessage.time ?? new Date().toISOString(),
       }, ...prev.slice(0, 99)]);
     }
   }, [lastMessage]);
